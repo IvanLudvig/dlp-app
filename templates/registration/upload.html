@@ -1,13 +1,23 @@
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Minimal Django File Upload Example</title>   
-    </head>
-    <body>
+
+<head>
+    <meta charset="utf-8">
+    <title>Minimal Django File Upload Example</title>
+</head>
+
+<body>
+    <div style="margin: auto; width: 300px; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; height:120px; border: 6px solid cadetblue; padding: 30px; border-radius: 16px;">
         <form action="" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            <input type="file" name="file">
-            <input type="submit" class="button" value="Upload">
-        </form>        
-    </body>
-</html> 
+            <span style="display: inline-block; margin: auto; text-align: center; width: 100%; font-size: 24px;">
+                Upload private key: &nbsp;
+            </span>
+            <br/><br/>
+            <input type="file" name="file" style="display: inline-block;  text-align: center; width: 100%;">
+            <br/><br/>
+            <input type="submit" class="button" value="Upload" style="width: 100px; height: 30px; margin-left: 100px; background-color:cadetblue; border-radius: 8px; border: none;">
+        </form>
+    </div>
+</body>
+
+</html>
