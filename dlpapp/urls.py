@@ -15,9 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.urls import re_path
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
     path('dlp/', include('dlp.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
+   # re_path(r'^.*$', RedirectView.as_view(url='/dlp/list_dir', permanent=False), name='index')
 ]

@@ -72,8 +72,8 @@ def read_file(request):
     ssh.connect(host, username=username, key_filename=pkey_path)
 
     ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command(f'python3 /usr/bin/dlp.py {file_name}')
-    print(ssh_stdout)
-    response = HttpResponse(ssh_stdout, content_type="application/force-download")
+    #print(ssh_stdout)
+    response = HttpResponse(str(ssh_stdout), content_type="application/force-download")
     response['Content-Disposition'] = 'attachment; filename="{}"'.format(file_name.split('/')[-1])
     return response
 
@@ -93,6 +93,10 @@ def handle_uploaded_file(request, _f):
 # Imaginary function to handle an uploaded file.
 @login_required
 def upload_file(request):
+    if request.method == 'GET':
+        username = str(request.user)
+        if os.path.exists('keys/' + username + '.private'):
+            return HttpResponseRedirect('/dlp/list_dir')
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         handle_uploaded_file(request, request.FILES['file'])
