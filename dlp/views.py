@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.template.response import TemplateResponse
 from django.template import loader
 from pathlib import Path
-
+import os
 
 host = '164.92.134.201'
 
@@ -16,7 +16,8 @@ from django.template import RequestContext, Template
     
 @login_required
 def list_dir(request):
-    dir = request.GET.get('dir', './')
+    dir = request.GET.get('dir', '.')
+    dir = os.path.normpath(dir)
     print(dir)
 
     username = str(request.user)
@@ -36,7 +37,9 @@ def list_dir(request):
     file_paths = []
     file_names = []
     dir_paths = [dir+'/../']
-    dir_names = ['..']
+    dir_names = []
+    if dir != '.':
+        dir_names.append('..')
     for fileattr in files_attr:
         if stat.S_ISDIR(fileattr.st_mode):
             full_path = (dir+'/'+fileattr.filename)
