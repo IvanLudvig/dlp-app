@@ -1,0 +1,47 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>List dir</title>
+</head>
+
+<body>
+    {% csrf_token %}
+    <div style="width: 600px; margin: auto;">
+        <div style="margin-bottom: 24px; font-size: 18px;">
+            <span>
+                User: {{username}}
+            </span>
+            <span style="float: right;">
+                <a href='/accounts/logout'>
+                    <button
+                        style="background-color: azure; border-radius: 8px; padding: 4px; border: 2px solid cadetblue; cursor: pointer;">Log
+                        out</button>
+                </a>
+            </span>
+        </div>
+        {% for dir_path, dir_name in dirs %}
+        <a href='/dlp/list_dir?dir={{dir_path}}' style="line-height: 30px;">
+            <div
+                style="height: 30px; background-color: lightgray; border: 2px solid cadetblue; padding: 8px; margin-top: 4px; border-radius: 8px;">
+                {{dir_name}}
+                <br />
+            </div>
+        </a>
+        {% endfor %}
+
+
+        {% for file_path, file_name in files %}
+        <a href='/dlp/read_file?filename={{file_path}}' style="line-height: 30px;">
+            <div
+                style="height: 30px; background-color: azure; border: 2px solid cadetblue; padding: 8px; margin-top: 4px; border-radius: 8px;">
+                {{file_name}}
+                <br />
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+</body>
+
+</html>

@@ -13,12 +13,6 @@ host = '164.92.134.201'
 
 from django.template import RequestContext, Template
 
-
-def header_content(username):
-    a =  "Username: {}".format(username) + "<br>"
-    a += "<a href='/accounts/logout'>LOGOUT</a> <br><br><br>"
-    return a
-
     
 @login_required
 def list_dir(request):
@@ -39,16 +33,26 @@ def list_dir(request):
     sftp = paramiko.SFTPClient.from_transport(connection)
 
     files_attr = sftp.listdir_attr(path=dir)
-    response = header_content(request.user)
-    response += "<a href='/dlp/list_dir?dir={}'>..</a> <br/>".format(dir + '/../')
+    file_paths = []
+    file_names = []
+    dir_paths = [dir+'/../']
+    dir_names = ['..']
     for fileattr in files_attr:
         if stat.S_ISDIR(fileattr.st_mode):
             full_path = (dir+'/'+fileattr.filename)
-            response += f"<a href='/dlp/list_dir?dir={full_path}'>{fileattr.filename}</a> <br/>"
+            dir_paths.append(full_path)
+            dir_names.append(fileattr.filename)
         else:
             full_path = (dir+'/'+fileattr.filename)
-            response += f"<a href='/dlp/read_file?filename={full_path}'>{fileattr.filename}</a> <br/>"
-    return HttpResponse(response)
+            file_paths.append(full_path)
+            file_names.append(fileattr.filename)
+    # return HttpResponse(response)
+    return render(request, 'listdir/listdir.html', {
+        'files': zip(file_paths, file_names), 
+        'dirs': zip(dir_paths, dir_names),
+        'username': request.user,
+        'dir': dir
+    })
 
 
 @login_required
