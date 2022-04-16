@@ -36,17 +36,17 @@ def list_dir(request):
     files_attr = sftp.listdir_attr(path=dir)
     file_paths = []
     file_names = []
-    dir_paths = [dir+'/../']
+    dir_paths = [os.path.normpath(dir+'/../')]
     dir_names = []
     if dir != '.':
         dir_names.append('..')
     for fileattr in files_attr:
         if stat.S_ISDIR(fileattr.st_mode):
-            full_path = (dir+'/'+fileattr.filename)
+            full_path = os.path.normpath(dir+'/'+fileattr.filename)
             dir_paths.append(full_path)
             dir_names.append(fileattr.filename)
         else:
-            full_path = (dir+'/'+fileattr.filename)
+            full_path = os.path.normpath(dir+'/'+fileattr.filename)
             file_paths.append(full_path)
             file_names.append(fileattr.filename)
     # return HttpResponse(response)
