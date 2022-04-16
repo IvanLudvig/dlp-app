@@ -96,7 +96,7 @@ def upload_file(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         handle_uploaded_file(request, request.FILES['file'])
-        return HttpResponseRedirect('/dlp/list_dir?dir=/')
+        return HttpResponseRedirect('/dlp/list_dir')
     else:
         form = UploadFileForm()
     return render(request, 'registration/upload.html', {'form': form})
