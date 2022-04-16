@@ -18,7 +18,7 @@ from django.template import RequestContext, Template
 def list_dir(request):
     dir = request.GET.get('dir', '.')
     dir = os.path.normpath(dir)
-    print(dir)
+    print(request.user)
 
     username = str(request.user)
     pkey_path = 'keys/' + username + '.private'
@@ -26,7 +26,7 @@ def list_dir(request):
     connection = paramiko.Transport(host, 22)
 
     try:
-        connection.connect(None, username=username, pkey=pkey)
+        connection.connect(None, username=str(request.user), pkey=pkey)
     except paramiko.AuthenticationException as error:
         return render(request, 'registration/game404.html')
 
