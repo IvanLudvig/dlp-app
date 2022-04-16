@@ -33,7 +33,7 @@ def list_dir(request):
     try:
         connection.connect(None, username=username, pkey=pkey)
     except paramiko.AuthenticationException as error:
-        return HttpResponse("404")
+        return render(request, 'registration/game404.html')
 
     # ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command(cmd_to_execute)
     sftp = paramiko.SFTPClient.from_transport(connection)
