@@ -128,3 +128,5 @@ STATIC_ROOT = "../templates/registration/static"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/dlp/upload'
+LOGOUT_REDIRECT_URL = '/accounts/login'
+
