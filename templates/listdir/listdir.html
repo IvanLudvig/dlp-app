@@ -42,12 +42,38 @@
             border: 2px solid cadetblue;
             cursor: pointer;
         }
+
+        .title {
+            font-size: 130px;
+            text-decoration: underline;
+            margin-left: 50px;
+            font-weight: bold;
+            margin-top: -20px;
+            margin-bottom: 10px;
+        }
+
     </style>
 </head>
 
 <body>
     {% csrf_token %}
     <div style="width: 600px; margin: auto;">
+        
+        <div class="title">
+            <span style="color: blue;">
+                О
+            </span>
+            <span style="color: red;">
+                З
+            </span>
+            <span style="color: green;">
+                О
+            </span>
+            <span style="color: yellow;">
+                Н
+            </span>
+        </div>
+
         <div style="margin-bottom: 24px; font-size: 16px;">
             <span>
                 User: {{username}}
