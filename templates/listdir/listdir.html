@@ -3,27 +3,66 @@
 <head>
     <meta charset="utf-8">
     <title>Browse: {{dir}}</title>
+    <style>
+        .dir {
+            height: 30px;
+            background-color: lightgray;
+            border: 2px solid cadetblue;
+            padding: 8px;
+            margin-top: 4px;
+            border-radius: 8px;
+        }
+
+        .file {
+            height: 30px;
+            background-color: azure;
+            border: 2px solid cadetblue;
+            padding: 8px;
+            margin-top: 4px;
+            border-radius: 8px;
+        }
+
+        .file:hover {
+            opacity: 0.7;
+        }
+
+        .dir:hover {
+            opacity: 0.7;
+        }
+
+        button:hover {
+            opacity: 0.7;
+        }
+
+        .logout {
+            font-size: 16px;
+            background-color: azure;
+            border-radius: 8px;
+            padding: 4px;
+            border: 2px solid cadetblue;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
     {% csrf_token %}
     <div style="width: 600px; margin: auto;">
-        <div style="margin-bottom: 24px; font-size: 18px;">
+        <div style="margin-bottom: 24px; font-size: 16px;">
             <span>
                 User: {{username}}
             </span>
             <span style="float: right;">
                 <a href='/accounts/logout'>
-                    <button
-                        style="background-color: azure; border-radius: 8px; padding: 4px; border: 2px solid cadetblue; cursor: pointer;">Log
-                        out</button>
+                    <button class="logout">
+                        Logout
+                    </button>
                 </a>
             </span>
         </div>
         {% for dir_path, dir_name in dirs %}
         <a href='/dlp/list_dir?dir={{dir_path}}' style="line-height: 30px;">
-            <div
-                style="height: 30px; background-color: lightgray; border: 2px solid cadetblue; padding: 8px; margin-top: 4px; border-radius: 8px;">
+            <div class="dir">
                 {{dir_name}}
                 <br />
             </div>
@@ -33,8 +72,7 @@
 
         {% for file_path, file_name in files %}
         <a href='/dlp/read_file?filename={{file_path}}' style="line-height: 30px;">
-            <div
-                style="height: 30px; background-color: azure; border: 2px solid cadetblue; padding: 8px; margin-top: 4px; border-radius: 8px;">
+            <div class="file">
                 {{file_name}}
                 <br />
             </div>
